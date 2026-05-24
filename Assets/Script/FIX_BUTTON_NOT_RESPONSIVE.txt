@@ -1,0 +1,61 @@
+# Fix Button Tidak Responsif di Quiz
+
+## ❌ MASALAH: Klik button tidak bekerja atau seperti terhalang
+
+## ✅ SOLUSI CEPAT:
+
+### Step 1: Check Panel Transparan yang Blocking
+1. Di Hierarchy Gameplay, expand "PanelPertanyaan" atau canvas quiz
+2. Cari ada berapa `Image` atau `Panel` component
+3. Jika ada panel/image yang **transparan tapi di atas button**:
+   - Select element itu
+   - Di Inspector, cari component `Image`
+   - **UNCHECK** checkbox `Raycast Target` ✓
+   - Sekarang klik bisa "tembus" ke button di bawahnya
+
+### Step 2: Pastikan Button Properties Benar
+1. Select salah satu tombol jawaban (misal: "Tomohon" button)
+2. Di Inspector:
+   - Component `Button` harus ada
+   - Checkbox `Interactable` ✅ **HARUS CHECKED**
+   - Jika unchecked, button tidak bisa diklik!
+
+### Step 3: Check Canvas Raycast Settings
+1. Select Canvas utama (parent dari semua UI)
+2. Di Inspector, cari component `GraphicRaycaster`
+3. Pastikan **TIDAK disabled** (harus ada checkmark biru)
+4. Jika disabled, aktifkan dengan klik checkbox
+
+### Step 4: Quick Debug
+Saat play game, buka **Console** dan:
+1. Klik button quiz
+2. Cek apakah ada error?
+3. Atau coba klik button sambil hold `Shift` untuk debug UI
+
+## 🔧 Debugging Lebih Detail:
+
+### Jika masih tidak responsif:
+1. Buat GameObject baru di Canvas: `GameObject > UI > Button`
+2. Test klik button baru itu - responsif?
+   - **YA**: Masalah di tombol quiz yang lama (rebuild atau recreate)
+   - **TIDAK**: Masalah di Canvas/Raycast setting
+
+### Raycast Target yang harus UNCHECKED:
+- Background image/panel (transparan)
+- Decorative images
+- Frame/border elements
+
+### Raycast Target yang harus CHECKED:
+- Quiz panel background (kalau ada interaksi)
+- **SEMUA Button components**
+- Input field
+- Toggle/Dropdown
+
+## Checklist Fix:
+✅ Tidak ada panel transparan di atas button (atau Raycast Target unchecked)
+✅ Button component `Interactable` = checked
+✅ Canvas `GraphicRaycaster` component aktif
+✅ Tidak ada error di Console
+✅ Button parents bukan destroyed/disabled
+
+Lakukan semua langkah ini, harusnya bisa fix! Kalau masih ada masalah, cek apa error di Console. 🎯

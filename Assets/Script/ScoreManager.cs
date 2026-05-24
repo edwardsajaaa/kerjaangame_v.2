@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -24,7 +25,12 @@ public class ScoreManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        // Disable debug runtime UI agar tidak blocking input
+        DebugManager.instance.enableRuntimeUI = false;
+        Debug.Log("[SCORE] Debug UI disabled - button input should work now!");
     }
 
     void Start()
