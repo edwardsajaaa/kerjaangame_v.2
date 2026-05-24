@@ -121,6 +121,10 @@ public class QuizManager : MonoBehaviour
             }
             Debug.Log("Jawaban benar!");
             
+            // Tambah poin
+            int pointsToAdd = ScoreManager.instance.GetPointsPerQuestion();
+            ScoreManager.instance.AddPoints(pointsToAdd);
+            
             // Tampilkan pertanyaan berikutnya setelah delay
             StartCoroutine(ShowNextQuestion(2f));
         }
@@ -136,6 +140,8 @@ public class QuizManager : MonoBehaviour
                 selectedButtonImage.color = wrongColor;
             }
             Debug.Log("Jawaban salah!");
+            
+            // Tidak tambah poin untuk jawaban salah
             
             // Tampilkan jawaban yang benar
             Image correctButtonImage = answerButtons[question.correctAnswerIndex].GetComponent<Image>();

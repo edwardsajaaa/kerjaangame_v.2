@@ -1,0 +1,40 @@
+# Setup Score System (Poin)
+
+## Cara Setup:
+
+### Step 1: Buat Score Display UI
+1. Di Canvas, buat TextMeshPro Text untuk tampilkan poin (nama: "ScoreDisplay")
+   - Contoh: "50/100"
+   - Letakkan di pojok atas layar
+
+### Step 2: Attach ScoreManager
+1. Buat GameObject baru di scene (nama: "ScoreManager")
+2. Attach Component `ScoreManager`
+3. Di Inspector:
+   - **Score Display**: Drag "ScoreDisplay" ke field ini
+   - **Total Questions**: 9 (jumlah total soal)
+   - **Max Score**: 100 (total poin maksimal)
+
+### Step 3: Sistem Akan Otomatis
+- ✅ Saat player jawab benar → poin bertambah (~11 poin per soal = 100/9)
+- ✅ Saat player jawab salah → poin tidak bertambah
+- ✅ Display otomatis update (0/100 → 11/100 → 22/100, dst)
+- ✅ Berfungsi untuk semua Quiz Station
+
+## Fitur:
+- **Singleton Pattern**: ScoreManager hanya ada 1 instance di game
+- **Persistent**: Poin tetap bertambah di setiap station
+- **Otomatis Hitung**: 100 poin dibagi rata ke 9 soal
+- **Display Update**: Real-time update poin di UI
+
+## Konfigurasi Poin Per Soal:
+```csharp
+// Jika ingin poin berbeda per soal:
+// Di QuizManager, bisa override:
+public int pointsForThisQuestion = 15; // Poin custom untuk soal ini
+```
+
+## Reset Score (Jika diperlukan):
+```csharp
+ScoreManager.instance.ResetScore();
+```
