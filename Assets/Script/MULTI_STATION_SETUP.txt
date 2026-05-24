@@ -1,0 +1,104 @@
+# Setup Multi-Station Quiz System
+
+## Struktur Yang Anda Punya:
+```
+Pos Soal (Main)
+├── Pos Soal (1) [dengan tombol & soal]
+├── Pos Soal (2) [dengan tombol & soal]
+├── Pos Soal (3) [dengan tombol & soal]
+└── dst...
+```
+
+## Cara Setup:
+
+### Opsi A: Buat Masing-Masing QuizManager (PALING SIMPLE)
+
+1. **Untuk setiap "Pos Soal"**, attach Component `QuizManager` terpisah
+2. Setiap Pos Soal punya 4 tombol & 1 text pertanyaan sendiri
+3. Di Inspector masing-masing QuizManager, assign:
+   - Question Text: text pertanyaan di Pos Soal itu
+   - Answer Buttons: 4 tombol jawaban di Pos Soal itu
+   - Pertanyaan yang berbeda untuk setiap station
+
+**Kelebihan:** Sederhana, mudah di-setup, cepat
+**Kekurangan:** Perlu attach QuizManager banyak kali
+
+---
+
+### Opsi B: Pakai QuizContainerManager (LEBIH SCALABLE)
+
+#### Step 1: Setup Setiap Pos Soal
+- Pos Soal (1): Attach QuizManager, assign tombol & text-nya
+- Pos Soal (2): Attach QuizManager, assign tombol & text-nya
+- Pos Soal (3): Attach QuizManager, assign tombol & text-nya
+- dst...
+
+#### Step 2: Setup QuizContainerManager
+1. Di parent "Pos Soal (Main)", attach Component `QuizContainerManager`
+2. Di Inspector QuizContainerManager, buat list "Quiz Stations":
+   - **Num Stations**: 3 (atau berapa jumlah pos soal Anda)
+   - **Element 0**:
+     - **Station Name**: "Pos Soal 1"
+     - **Quiz Manager**: Drag QuizManager dari Pos Soal (1)
+     - **Questions**: 1 (atau lebih)
+       - Element 0: [Setup pertanyaan untuk station 1]
+   
+   - **Element 1**:
+     - **Station Name**: "Pos Soal 2"
+     - **Quiz Manager**: Drag QuizManager dari Pos Soal (2)
+     - **Questions**: 1 (atau lebih)
+       - Element 0: [Setup pertanyaan untuk station 2]
+
+   - dst...
+
+#### Step 3: Kontrol Dari Script
+```csharp
+// Dapatkan station tertentu
+QuizContainerManager.QuizStation station1 = containerManager.GetStationByName("Pos Soal 1");
+
+// Atau setup langsung dari code:
+var newQuestion = new QuizManager.Question 
+{
+    questionText = "Pertanyaan?",
+    answers = new List<string> { "A", "B", "C", "D" },
+    correctAnswerIndex = 0
+};
+station1.questions.Add(newQuestion);
+```
+
+---
+
+## Contoh Struktur Lengkap:
+
+```
+Canvas (atau Panel utama)
+├── Pos Soal (Main) [attach: QuizContainerManager]
+│   ├── Pos Soal (1) [attach: QuizManager]
+│   │   ├── QuestionText (TextMeshPro)
+│   │   ├── Answer Button 1
+│   │   ├── Answer Button 2
+│   │   ├── Answer Button 3
+│   │   └── Answer Button 4
+│   │
+│   ├── Pos Soal (2) [attach: QuizManager]
+│   │   ├── QuestionText (TextMeshPro)
+│   │   ├── Answer Button 1
+│   │   ├── Answer Button 2
+│   │   ├── Answer Button 3
+│   │   └── Answer Button 4
+│   │
+│   └── Pos Soal (3) [attach: QuizManager]
+│       ├── QuestionText (TextMeshPro)
+│       ├── Answer Button 1
+│       ├── Answer Button 2
+│       ├── Answer Button 3
+│       └── Answer Button 4
+```
+
+---
+
+## Tips:
+✅ Setiap Pos Soal bisa punya sprite button berbeda
+✅ Setiap Pos Soal bisa punya pertanyaan berbeda
+✅ Sistem bisa auto-trigger saat player mendekati (pakai InteractableObject)
+✅ Bisa ada timer untuk quiz per station

@@ -1,0 +1,44 @@
+# Panduan Setup Quiz System
+
+## Langkah-langkah Setup:
+
+### 1. Di Unity Editor:
+- Buat Canvas baru (jika belum ada)
+- Buat TextMeshPro Text untuk menampilkan pertanyaan (nama: "QuestionText")
+- Buat 4 Button untuk jawaban (nama: "Answer1", "Answer2", "Answer3", "Answer4")
+- Setiap button berisi TextMeshPro Text untuk teks jawaban
+
+### 2. Assign Component:
+- Pilih panel/canvas yang berisi semua elemen quiz
+- Tambahkan Component "QuizManager" 
+- Di Inspector, assign:
+  - **Question Text**: drag "QuestionText" ke field ini
+  - **Answer Buttons**: assign 4 button ke list ini (urutan penting!)
+  - **Correct Color**: set ke warna hijau (R:0, G:255, B:0)
+  - **Wrong Color**: set ke warna merah (R:255, G:0, B:0)
+  - **Default Color**: set ke warna putih (R:255, G:255, B:255)
+
+### 3. Tambah Pertanyaan di Inspector:
+Di field "Questions" pada QuizManager, tambahkan pertanyaan:
+- Jumlah: 1 (atau lebih sesuai kebutuhan)
+- Element 0:
+  - **Question Text**: "Apa slogan atau filosofi dari Universitas Sam Ratulangi yang dicetuskan oleh Dr. Sam Ratulangi?"
+  - **Answers**: 
+    - [0] "Torang Semua Basudara"
+    - [1] "Pakatuang Pakalawiden"
+    - [2] "Si Tou Timou Tumou Tou"
+    - [3] "I Yayai U Samti"
+  - **Correct Answer Index**: 0 (karena "Torang Semua Basudara" adalah jawaban benar)
+
+### 4. Fitur yang Tersedia:
+- ✅ Soal dan jawaban bisa diatur di Inspector atau script
+- ✅ Tombol berubah HIJAU saat jawaban benar
+- ✅ Tombol berubah MERAH saat jawaban salah (+ tampil jawaban yang benar)
+- ✅ Otomatis pindah ke pertanyaan berikutnya setelah delay
+- ✅ Bisa tambah pertanyaan dengan fungsi: `quizManager.AddQuestion(...)`
+
+## Contoh Menambah Pertanyaan via Script:
+```csharp
+List<string> answers = new List<string> { "Jawaban A", "Jawaban B", "Jawaban C", "Jawaban D" };
+quizManager.AddQuestion("Pertanyaan apa ini?", answers, 1); // Index 1 adalah jawaban benar
+```
