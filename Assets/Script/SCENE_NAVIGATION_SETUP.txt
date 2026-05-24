@@ -1,0 +1,79 @@
+# Scene Navigation Setup
+
+## Cara Setup:
+
+### Step 1: Pastikan Scene Nama Sudah Benar
+Di **File > Build Settings**, pastikan kedua scene sudah di-add:
+1. **Scene 0**: MainMenu
+2. **Scene 1**: Gameplay
+
+Jika belum, drag-and-drop scene file dari Scenes folder ke Build Settings.
+
+### Step 2: Setup SceneManager (Di Semua Scene)
+1. Buat GameObject baru di scene (nama: "SceneManager")
+2. Attach Component `SceneManager`
+3. Optional: Jika ingin SceneManager bertahan antar scene, biarkan DontDestroyOnLoad aktif (default)
+
+### Step 3: Setup UIMenuButton (Di MainMenu Scene)
+1. Pilih Canvas atau panel yang berisi tombol main menu
+2. Buat GameObject baru untuk holder UI buttons (nama: "MenuUIManager")
+3. Attach Component `UIMenuButton`
+4. Di Inspector:
+   - **Play Button**: Drag tombol "Play" dari hierarchy ke field ini
+   - **Quit Button**: Drag tombol "Quit" dari hierarchy ke field ini
+
+### Step 4: Alternative - Manual Button Setup
+Jika tidak ingin pakai UIMenuButton, bisa langsung assign button onClick:
+
+**Di Unity Inspector:**
+1. Pilih tombol "Play"
+2. Di section `Button (Script)`, cari `On Click ()`
+3. Klik `+` untuk tambah listener
+4. Drag SceneManager GameObject ke field object
+5. Di dropdown function, pilih: `SceneManager > LoadGameplay()`
+6. Repeat untuk tombol lain
+
+## Fungsi yang Tersedia:
+
+```csharp
+// Load gameplay dari main menu
+SceneManager.instance.LoadGameplay();
+
+// Load main menu dari gameplay
+SceneManager.instance.LoadMainMenu();
+
+// Load scene tertentu (berdasarkan nama)
+SceneManager.instance.LoadScene("SceneName");
+
+// Reload scene sekarang
+SceneManager.instance.ReloadScene();
+
+// Quit aplikasi
+SceneManager.instance.QuitGame();
+```
+
+## Struktur Scene:
+```
+MainMenu Scene
+├── Canvas
+│   ├── PlayButton
+│   ├── QuitButton
+│   └── MenuUIManager [UIMenuButton script]
+│
+├── SceneManager [SceneManager script]
+└── Camera
+
+Gameplay Scene
+├── Canvas
+│   ├── Quiz UI (Pos Soal 1, 2, 3, dll)
+│   └── Score Display
+│
+├── SceneManager [SceneManager script]
+├── Player
+└── Camera
+```
+
+## Tips:
+✅ SceneManager hanya perlu di-attach 1 kali (Singleton pattern)
+✅ Bisa pakai UIMenuButton atau manual onClick listeners
+✅ Pastikan scene names di Build Settings sesuai dengan nama di script
