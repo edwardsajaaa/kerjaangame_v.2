@@ -1,0 +1,35 @@
+# Troubleshoot: Object Menghilang Saat Play
+
+## Solusi Cepat:
+
+### 1. SAVE SCENE (PENTING!)
+- Pastikan scene sudah di-save dengan `Ctrl+S`
+- Jika ada unsaved changes (nama file italic/tanda bintang), scene belum tersimpan
+
+### 2. Setup Build Settings
+Di **File > Build Settings**:
+1. Drag **MainMenu.unity** ke paling atas
+2. Drag **Gameplay.unity** di bawahnya
+
+Seharusnya seperti ini:
+```
+Scene 0: MainMenu.unity
+Scene 1: Gameplay.unity
+```
+
+### 3. Pastikan Main Scene Aktif
+Saat develop, pastikan yang di-play adalah **Gameplay.unity** (atau scene yang ingin ditest):
+- Double-click **Gameplay.unity** di Project > Assets > Scenes
+- Atau klik nama scene di Scene tab
+
+### 4. Check SceneManager
+- Jangan ada 2 SceneManager instance di scene
+- Hanya boleh 1 GameObject dengan SceneManager component
+
+## Jika Masih Hilang:
+1. Close Unity sepenuhnya
+2. Buka project lagi
+3. Save all scenes (`Ctrl+S`)
+4. Play scene yang ingin di-test
+
+Biasanya akan kembali normal!

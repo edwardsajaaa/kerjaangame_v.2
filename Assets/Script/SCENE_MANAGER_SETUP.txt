@@ -1,0 +1,45 @@
+# Setup Scene Navigation (MainMenu → Gameplay)
+
+## Langkah Setup:
+
+### Step 1: Add Scenes ke Build Settings
+1. Buka `File > Build Settings`
+2. Drag-and-drop scene ke bagian "Scenes In Build":
+   - **Scene 0**: MainMenu.unity
+   - **Scene 1**: Gameplay.unity
+
+### Step 2: Attach SceneManager ke MainMenu Scene
+1. Di **MainMenu scene**, buat GameObject baru (nama: "SceneManager")
+2. Attach Component `SceneManager`
+3. Di Inspector, assign:
+   - **Play Button**: Drag tombol "Play" dari Canvas
+   - **Quit Button**: Drag tombol "Quit" dari Canvas (opsional)
+
+### Step 3: Setup Button
+Tombol akan otomatis connect ke script via:
+- Manual assignment di Inspector (recommended), ATAU
+- Auto-find jika tombol diberi nama "PlayButton" / "QuitButton"
+
+### Step 4: Test
+1. Klik Play di Unity
+2. Klik tombol Play → harusnya pindah ke Gameplay scene
+
+---
+
+## Fitur Script:
+✅ Perpindahan scene dengan tombol
+✅ Load GamePlay / Load MainMenu
+✅ Quit aplikasi
+✅ Singleton pattern (1 instance untuk semua scene)
+✅ DontDestroyOnLoad (SceneManager tetap ada di semua scene)
+
+---
+
+## Cara Pakai dari Script:
+```csharp
+// Dari script lain, bisa panggil:
+SceneManager.instance.LoadGameplay();    // Ke Gameplay
+SceneManager.instance.LoadMainMenu();    // Ke MainMenu
+SceneManager.instance.ReloadScene();     // Reload scene sekarang
+SceneManager.instance.QuitGame();        // Quit game
+```
