@@ -17,6 +17,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private List<Question> questions = new List<Question>();
     [SerializeField] private TextMeshProUGUI questionText;
     [SerializeField] private List<Button> answerButtons = new List<Button>();
+    [SerializeField] private GameObject quizPanel; // Panel yang akan ditutup saat selesai
     
     // Untuk warna (jika tidak pakai sprite)
     [SerializeField] private Color correctColor = Color.green;
@@ -30,6 +31,7 @@ public class QuizManager : MonoBehaviour
     
     private int currentQuestionIndex = 0;
     private bool isAnswered = false;
+    private bool quizCompleted = false; // Track jika quiz sudah diselesaikan
 
     void Start()
     {
@@ -38,6 +40,12 @@ public class QuizManager : MonoBehaviour
         {
             Debug.LogError("Harus ada 4 tombol jawaban!");
             return;
+        }
+
+        // Auto-assign quiz panel jika belum di-assign
+        if (quizPanel == null)
+        {
+            quizPanel = gameObject;
         }
 
         // Setup button listeners
@@ -96,6 +104,7 @@ public class QuizManager : MonoBehaviour
         if (isAnswered) return;
 
         isAnswered = true;
+        quizCompleted = true; // Quiz sudah diselesaikan
         Question question = questions[currentQuestionIndex];
         Image selectedButtonImage = answerButtons[selectedIndex].GetComponent<Image>();
 
@@ -147,14 +156,11 @@ public class QuizManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        if (currentQuestionIndex + 1 < questions.Count)
+        // Langsung tutup panel setelah menjawab
+        Debug.Log("Jawaban sudah diterima! Panel ditutup.");
+        if (quizPanel != null)
         {
-            DisplayQuestion(currentQuestionIndex + 1);
-        }
-        else
-        {
-            Debug.Log("Quiz selesai!");
-            // Bisa tambah logic lain di sini, misalnya tutup panel
+            quizPanel.SetActive(false);
         }
     }
 
@@ -183,6 +189,19 @@ public class QuizManager : MonoBehaviour
     {
         questions = new List<Question>(newQuestions);
         currentQuestionIndex = 0;
+        isAnswered = false;
+    }
+
+    // Cek apakah quiz sudah diselesaikan
+    public bool IsQuizCompleted()
+    {
+        return quizCompleted;
+    }
+
+    // Reset quiz status (untuk restart)
+    public void ResetQuizStatus()
+    {
+        quizCompleted = false;
         isAnswered = false;
     }
 }

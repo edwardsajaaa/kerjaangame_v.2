@@ -68,6 +68,14 @@ public class InteractableObject : MonoBehaviour
     {
         if (panelToActivate != null)
         {
+            // Cek apakah panel punya QuizManager dan sudah diselesaikan
+            QuizManager quizManager = panelToActivate.GetComponent<QuizManager>();
+            if (quizManager != null && quizManager.IsQuizCompleted())
+            {
+                Debug.Log("Quiz sudah diselesaikan! Panel tidak ditampilkan lagi.");
+                return; // Jangan tampilkan panel
+            }
+
             // Aktifkan panel
             panelToActivate.SetActive(true);
             Debug.Log("Panel diaktifkan!");
