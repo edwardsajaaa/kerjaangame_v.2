@@ -207,6 +207,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Respawn ke spawn point terakhir
+    public void Respawn()
+    {
+        transform.position = RespawnPoint.lastSpawnPosition;
+        rb.velocity = Vector2.zero; // Reset velocity
+        isJumping = false;
+        Debug.Log($"↩️ Player respawned to: {RespawnPoint.lastSpawnPosition}");
+    }
+
     // Visualisasi ground check untuk debugging
     void OnDrawGizmos()
     {

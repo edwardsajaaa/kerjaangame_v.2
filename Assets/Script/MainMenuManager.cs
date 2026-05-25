@@ -7,7 +7,21 @@ public class MainMenuManager : MonoBehaviour
     public void GoToGameplay()
     {
         // Pastikan nama scene persis sama dengan yang ada di project Anda, termasuk huruf besar/kecil
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("Gameplay1");
+    }
+
+    // Fungsi untuk kembali ke MainMenu
+    public void GoToMainMenu()
+    {
+        Debug.Log("Kembali ke MainMenu...");
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    // Fungsi untuk ke Gameplay_2
+    public void GoToGameplay2()
+    {
+        Debug.Log("Menuju Gameplay2...");
+        SceneManager.LoadScene("Gameplay2");
     }
 
     // Tambahan: Fungsi untuk keluar dari game

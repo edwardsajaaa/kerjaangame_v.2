@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI scoreDisplay; // UI untuk tampilkan poin
     [SerializeField] private int totalQuestions = 9;
-    [SerializeField] private int maxScore = 100;
+    [SerializeField] private int maxScore = 9;
     
     private int currentScore = 0;
 
