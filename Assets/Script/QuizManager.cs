@@ -41,6 +41,9 @@ public class QuizManager : MonoBehaviour
 
     void Start()
     {
+        // Reset counter enemy quiz saat scene baru
+        timerQuizCompletedCount = 0;
+
         // Pastikan ada 4 button untuk jawaban
         if (answerButtons.Count != 4)
         {

@@ -16,9 +16,11 @@ public class FinishPosManager : MonoBehaviour
     private GameObject player;
     private CircleCollider2D rangeCollider;
     
-    // Reference untuk mengecek total pertanyaan
-    private int totalQuestions = 9;         // Soal normal (tanpa timer) - sumber poin
-    [SerializeField] private int totalTimerQuizzes = 3; // Soal enemy (timer) - wajib dijawab semua
+    // Ubah nilai ini di Inspector sesuai level:
+    // Level 1: totalQuestions = 9  | totalTimerQuizzes = 3
+    // Level 2: totalQuestions = 18 | totalTimerQuizzes = 3 (atau sesuai kebutuhan)
+    [SerializeField] private int totalQuestions = 9;        // Soal normal (tanpa timer) - sumber poin
+    [SerializeField] private int totalTimerQuizzes = 3;     // Soal enemy (timer) - wajib dijawab semua
 
     void Start()
     {
