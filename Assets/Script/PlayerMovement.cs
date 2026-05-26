@@ -135,6 +135,10 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+            // SFX lompat
+            PlayerSoundController soundController = GetComponent<PlayerSoundController>();
+            if (soundController != null) soundController.PlayJumpSound();
         }
         
         // Set isJumping false ketika sudah grounded dan tidak ada upward velocity

@@ -37,6 +37,9 @@ public class WaterDamage : MonoBehaviour
     {
         lastRespawnTime = Time.time;
 
+        // SFX kena air
+        PlayerSoundController.PlaySplashSound();
+
         // 1. Kurangi health
         if (HealthManager.instance != null)
         {

@@ -143,6 +143,7 @@ public class QuizManager : MonoBehaviour
                 selectedButtonImage.color = correctColor;
             }
             Debug.Log("✓ Jawaban benar!");
+            PlayerSoundController.PlayCorrectSound(); // SFX jawaban benar
             
             if (!question.useTimer)
             {
@@ -173,6 +174,7 @@ public class QuizManager : MonoBehaviour
                 selectedButtonImage.color = wrongColor;
             }
             Debug.Log("✗ Jawaban salah!");
+            PlayerSoundController.PlayWrongSound(); // SFX jawaban salah
             
             // Jika quiz pakai TIMER → langsung kurangi health 1
             if (question.useTimer)
